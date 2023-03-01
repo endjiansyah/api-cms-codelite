@@ -46,7 +46,7 @@ class NewsController extends Controller
         $validator = Validator::make($payload, [
             "title" => 'required',
             "content" => 'required',
-            "banner" => 'mimes:jpg,jpeg,png,heic'
+            "banner" => 'required|mimes:jpg,jpeg,png,heic'
         ]);
 
         if ($validator->fails()) {
@@ -59,7 +59,14 @@ class NewsController extends Controller
         if (!isset($payload['title'])) {
             return response()->json([
                 "status" => false,
-                "message" => "data tidak ditemukan",
+                "message" => "field wajib diisi",
+                "data" => null
+            ]);
+        }
+        if (!isset($payload['banner'])) {
+            return response()->json([
+                "status" => false,
+                "message" => "field wajib diisi",
                 "data" => null
             ]);
         }
@@ -82,6 +89,20 @@ class NewsController extends Controller
 
     function update(Request $request, $id)
     {
+        $payload = $request->all();
+        $validator = Validator::make($payload, [
+            "title" => 'required',
+            "content" => 'required',
+            "banner" => 'required|mimes:jpg,jpeg,png,heic'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                "message" => $validator->errors(),
+                "data" => null
+            ]);
+        }
         $news = News::query()->where("id", $id)->first();
         if (!isset($news)) {
             return response()->json([
