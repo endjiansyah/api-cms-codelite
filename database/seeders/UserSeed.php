@@ -15,9 +15,9 @@ class UserSeed extends Seeder
     public function run(): void
     {
         User::query()->create([
-            "name" => "hilih",
-            "email" => "hilih@gmail.com",
-            "password" => "hilih"
+            "name" => "codelite",
+            "email" => "admin@codelite.com",
+            "password" => "codelite"
         ]);
     }
 }

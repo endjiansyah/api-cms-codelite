@@ -28,9 +28,9 @@ Route::post("/user/{id}/delete", [UserController::class, "destroy"])->middleware
 // ---------{news}-------
 Route::get("/news", [NewsController::class, "index"]);
 Route::get("/news/{id}", [NewsController::class, "show"]);
-Route::post("/news", [NewsController::class, "store"]);
-Route::post("/news/{id}/edit", [NewsController::class, "update"]);
-Route::post("/news/{id}/delete", [NewsController::class, "destroy"]);
+Route::post("/news", [NewsController::class, "store"])->middleware("auth:sanctum");
+Route::post("/news/{id}/edit", [NewsController::class, "update"])->middleware("auth:sanctum");
+Route::post("/news/{id}/delete", [NewsController::class, "destroy"])->middleware("auth:sanctum");
 
 // ---------{Auth}-------
 Route::post("/login", [AuthController::class, "login"]);

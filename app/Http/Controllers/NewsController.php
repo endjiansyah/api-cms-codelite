@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
@@ -42,6 +43,19 @@ class NewsController extends Controller
     function store(Request $request)
     {
         $payload = $request->all();
+        $validator = Validator::make($payload, [
+            "title" => 'required',
+            "content" => 'required',
+            "banner" => 'mimes:jpg,jpeg,png,heic'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                "message" => $validator->errors(),
+                "data" => null
+            ]);
+        }
         if (!isset($payload['title'])) {
             return response()->json([
                 "status" => false,
