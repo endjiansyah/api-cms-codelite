@@ -93,7 +93,7 @@ class NewsController extends Controller
         $validator = Validator::make($payload, [
             "title" => 'required',
             "content" => 'required',
-            "banner" => 'required|mimes:jpg,jpeg,png,heic'
+            "banner" => 'mimes:jpg,jpeg,png,heic'
         ]);
 
         if ($validator->fails()) {
